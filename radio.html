@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkBack Label Repro</title>
+    <style>
+        .test-case { margin-bottom: 30px; padding: 10px; border: 1px solid #ccc; }
+        span { color: blue; font-weight: bold; } /* Simulating styling that devs might use */
+    </style>
+</head>
+<body>
+    <h1>TalkBack Label Focus Repro</h1>
+
+    <!-- GOOD CASE -->
+    <div class="test-case">
+        <h2>1. Good Case (Combined Focus)</h2>
+        <p>Expectation: Radio and label are focused together. TalkBack announces both in one go.</p>
+        <input type="radio" id="good-apple" name="fruit-good" value="apple">
+        <label for="good-apple">Apple</label>
+    </div>
+
+    <!-- BAD CASE -->
+    <div class="test-case">
+        <h2>2. Bad Case (Split Focus due to span)</h2>
+        <p>Expectation (Bug): Radio and label are focused separately. Requires two swipes.</p>
+        <input type="radio" id="bad-apple" name="fruit-bad" value="apple">
+        <label for="bad-apple"><span>Apple (with span)</span></label>
+    </div>
+</body>
+</html>
