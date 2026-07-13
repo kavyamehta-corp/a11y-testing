@@ -1,38 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TalkBack Label Repro</title>
+    <title>Untitled-1</title>
     <style>
-        .test-case { margin-bottom: 30px; padding: 10px; border: 1px solid #ccc; }
-        span { color: blue; font-weight: bold; } /* Simulating styling that devs might use */
+        input[type='radio']:focus+label::before {
+            box-shadow: 0 0px 8px #f00;
+            /* Replace '#f00' with the color value of $muted-red */
+        }
+
+        input[type="radio"] {
+            clip-path: polygon(0 0);
+            margin-right: 10px;
+            position: absolute;
+        }
+
+        .radio-group label {
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .radio-group label:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: inset 0 0 0 2px #ccc;
+        }
+
+        .radio-group input[type="radio"]:checked+label {
+            font-weight: bold;
+            border-color: #007bff;
+        }
+
+        .radio-group label span {
+            /* Add your custom styles for the label text here */
+            font-size: 16px;
+            /* Example: setting font size */
+            color: #333;
+            /* Example: setting text color */
+        }
+
+        .radio-group input[type="radio"]:checked+label:before {
+            box-shadow: inset 0 0 0 10px #007bff;
+        }
     </style>
 </head>
+
 <body>
-    <h1>TalkBack Label Focus Repro</h1>
-
-    <!-- GOOD CASE -->
-    <div class="test-case">
-        <h2>1. Good Case (Combined Focus)</h2>
-        <p>Expectation: Radio and label are focused together. TalkBack announces both in one go.</p>
-        <input type="radio" id="good-apple" name="fruit-good" value="apple">
-        <label for="good-apple">Apple</label>
-    </div>
-
-    <!-- BAD CASE -->
-    <div class="test-case">
-        <h2>2. Bad Case (Split Focus due to span)</h2>
-        <p>Expectation (Bug): Radio and label are focused separately. Requires two swipes.</p>
-        <input type="radio" id="bad-apple" name="fruit-bad" value="apple">
-        <label for="bad-apple"><span>Apple (with span)</span></label>
-    </div>
-
-    <!-- MULTIPLE SPANS -->
-    <div class="test-case">
-        <h2>3. Multiple Span Case </h2>
-        <input type="radio" id="apple-banana" name="fruit-basket" value="fruit-basket">
-        <label for="apple-banana"><span>Apple</span> <span>Banana</span></label>
+    <h1>Radio button test example</h1>
+    <div class="radio-group">
+        <!-- Good Case -->
+        <input type="radio" id="apple" name="fruit" value="apple">
+        <label for="apple">Apple</label>
+        <br>
+        <!-- Bad Case -->
+        <input type="radio" id="banana" name="fruit" value="banana">
+        <label for="banana"><span>Banana</span></label>
     </div>
 </body>
+
 </html>
